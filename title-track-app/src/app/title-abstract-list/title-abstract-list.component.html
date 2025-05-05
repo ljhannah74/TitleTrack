@@ -1,0 +1,25 @@
+<h2>Manage Title Abstracts</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Order No</th>
+            <th>Search Date</th>
+            <th>Effective Date</th>
+            <th>Client</th>
+            <th>Client Ref No</th>
+            <th>Product Type</th>
+            <th>Property Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let titleAbstract of titleAbstracts">
+            <td>{{ titleAbstract.orderNo }}</td>
+            <td>{{ titleAbstract.searchDate | date: 'shortDate' }}</td>
+            <td>{{ titleAbstract.effectiveDate | date: 'shortDate' }}</td>
+            <td>{{ titleAbstract.client }}</td>
+            <td>{{ titleAbstract.clientRefNo }}</td>
+            <td>{{ titleAbstract.productType }}</td>
+            <td>{{ titleAbstract.propertyAddress }}</td>
+        </tr>
+    </tbody>
+</table>
