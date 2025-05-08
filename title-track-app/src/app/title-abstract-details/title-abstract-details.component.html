@@ -1,34 +1,34 @@
 <h2>Create Title Abstract</h2>
-<form [formGroup]="form" (ngSubmit)="save()" class="form-grid">
+<form [formGroup]="form" (ngSubmit)="save()">
   <!-- Title Abstract Main Fields -->
-  <div class="form-group">
+  <div>
     <label>Order No: <input formControlName="orderNo" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Search Date: <input type="date" formControlName="searchDate" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Effective Date: <input type="date" formControlName="effectiveDate" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Property: <input formControlName="propertyAddress" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Client: <input formControlName="client" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Client Ref No: <input formControlName="clientRefNo" /></label><br />
   </div>
 
-  <div class="form-group">
+  <div>
     <label>Product Type: <input formControlName="productType" /></label><br />
   </div>
-  <div class="form-actions">
+  <div>
     <button type="submit">Save</button>
   </div>
 </form>
