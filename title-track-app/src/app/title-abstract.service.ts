@@ -15,4 +15,8 @@ export class TitleAbstractService {
   getTitleAbstracts(): Observable<TitleAbstract[]> {
     return this.http.get<TitleAbstract[]>(this.apiUrl);
   }
+
+  createTitleAbstract(titleAbstract: TitleAbstract): Observable<TitleAbstract> {
+    return this.http.post<TitleAbstract>(this.apiUrl, titleAbstract);
+  }
 }
