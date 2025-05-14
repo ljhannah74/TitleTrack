@@ -5,7 +5,7 @@ using TitleTrackAPI.Models;
 
 namespace TitleTrackAPI.Repositories;
 
-public class TitleAbstractRepository
+public class TitleAbstractRepository : ITitleAbstractRepository
 {
     private readonly AppDbContext _context;
     public TitleAbstractRepository(AppDbContext context)
