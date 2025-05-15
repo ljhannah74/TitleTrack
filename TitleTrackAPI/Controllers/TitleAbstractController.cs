@@ -12,5 +12,12 @@ namespace TitleTrackAPI.Controllers
         {
             _titleAbstractRepository = titleAbstractRepository;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTitleAbstracts()
+        {
+            var titleAbstracts = await _titleAbstractRepository.GetAllAsync();
+            return Ok(titleAbstracts);
+        }
     }
 }
