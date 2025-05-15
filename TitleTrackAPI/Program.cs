@@ -25,4 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 app.UseCors("MyCors");
+
+app.MapControllers();
+
 app.Run();
