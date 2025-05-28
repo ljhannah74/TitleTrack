@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TitleTrackAPI.Models;
 using TitleTrackAPI.Repositories;
 
 namespace TitleTrackAPI.Controllers
@@ -18,6 +19,20 @@ namespace TitleTrackAPI.Controllers
         {
             var titleAbstracts = await _titleAbstractRepository.GetAllAsync();
             return Ok(titleAbstracts);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetTitleAbstractById(int id)
+        {
+            var titleAbstract = await _titleAbstractRepository.GetByIdAsync(id);
+
+            if (titleAbstract == null)
+            {
+                return NotFound($"Title Abstract with ID {id} not found.");
+            }
+            
+            return Ok(titleAbstract);
         }
     }
 }
