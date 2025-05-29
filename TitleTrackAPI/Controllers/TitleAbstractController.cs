@@ -31,8 +31,20 @@ namespace TitleTrackAPI.Controllers
             {
                 return NotFound($"Title Abstract with ID {id} not found.");
             }
-            
+
             return Ok(titleAbstract);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTitleAbstract([FromBody] TitleAbstract titleAbstract)
+        {
+            if (titleAbstract == null)
+            {
+                return BadRequest("Title Abstract cannot be null.");
+            }
+
+            await _titleAbstractRepository.AddTitleAbstractAsync(titleAbstract);
+            return CreatedAtAction(nameof(GetTitleAbstractById), new { id = titleAbstract.TitleAbstractID }, titleAbstract);
         }
     }
 }

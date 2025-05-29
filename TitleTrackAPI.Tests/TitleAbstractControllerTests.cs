@@ -60,4 +60,31 @@ public class TitleAbstractControllerTests
         var ok = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(item, ok.Value);
     }
+
+    [Fact]
+    public async Task CreateTitleAbstract_ReturnsBadRequest_IfNull()
+    {
+        // Act
+        var result = await _controller.CreateTitleAbstract(null);
+
+        // Assert
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Title Abstract cannot be null.", badRequest.Value);
+    }
+
+    [Fact]
+    public async Task CreateTitleAbstract_ReturnsCreatedAtAction()
+    {
+        // Arrange
+        var abstractItem = new TitleAbstract { TitleAbstractID = 1 };
+        _mockRepo.Setup(r => r.AddTitleAbstractAsync(abstractItem)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.CreateTitleAbstract(abstractItem);
+
+        // Assert
+        var createdAt = Assert.IsType<CreatedAtActionResult>(result);
+        Assert.Equal(abstractItem, createdAt.Value);
+    }
+
 }
