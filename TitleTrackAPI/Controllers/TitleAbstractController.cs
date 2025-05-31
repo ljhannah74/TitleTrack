@@ -46,5 +46,20 @@ namespace TitleTrackAPI.Controllers
             await _titleAbstractRepository.AddTitleAbstractAsync(titleAbstract);
             return CreatedAtAction(nameof(GetTitleAbstractById), new { id = titleAbstract.TitleAbstractID }, titleAbstract);
         }
+
+        [HttpGet]
+        [Route("orderNo/{orderNo}")]
+        
+        public async Task<IActionResult> GetTitleAbstractByOrderNo(string orderNo)
+        {
+            var titleAbstract = await _titleAbstractRepository.GetByOrderNoAsync(orderNo);
+
+            if (titleAbstract == null)
+            {
+                return NotFound($"Title Abstract with Order No {orderNo} not found.");
+            }
+
+            return Ok(titleAbstract);
+        }
     }
 }
