@@ -87,4 +87,32 @@ public class TitleAbstractControllerTests
         Assert.Equal(abstractItem, createdAt.Value);
     }
 
+    [Fact]
+    public async Task GetTitleAbstractByOrderNo_ReturnsNotFound_IfNotExists()
+    {
+        // Arrange
+        _mockRepo.Setup(r => r.GetByOrderNoAsync("12345")).ReturnsAsync((TitleAbstract?)null);
+        // Act
+
+        var result = await _controller.GetTitleAbstractByOrderNo("12345");
+        // Assert
+
+        var notFound = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal("Title Abstract with Order No 12345 not found.", notFound.Value);
+    }
+
+    [Fact]
+    public async Task GetTitleAbstractByOrderNo_ReturnsOk_IfFound()
+    {
+        // Arrange
+        var item = new TitleAbstract { OrderNo = "12345" };
+        _mockRepo.Setup(r => r.GetByOrderNoAsync("12345")).ReturnsAsync(item);
+
+        // Act
+        var result = await _controller.GetTitleAbstractByOrderNo("12345");
+
+        // Assert
+        var ok = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(item, ok.Value);
+    }
 }
