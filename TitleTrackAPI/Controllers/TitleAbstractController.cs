@@ -49,7 +49,6 @@ namespace TitleTrackAPI.Controllers
 
         [HttpGet]
         [Route("orderNo/{orderNo}")]
-        
         public async Task<IActionResult> GetTitleAbstractByOrderNo(string orderNo)
         {
             var titleAbstract = await _titleAbstractRepository.GetByOrderNoAsync(orderNo);
@@ -60,6 +59,25 @@ namespace TitleTrackAPI.Controllers
             }
 
             return Ok(titleAbstract);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateTitleAbstract(int id, TitleAbstract titleAbstract)
+        {
+            if (titleAbstract == null || titleAbstract.TitleAbstractID != id)
+            {
+                return BadRequest("Title Abstract data is invalid.");
+            }
+
+            var existingTitleAbstract = await _titleAbstractRepository.GetByIdAsync(id);
+            if (existingTitleAbstract == null)
+            {
+                return NotFound($"Title Abstract with ID {id} not found.");
+            }
+
+            await _titleAbstractRepository.UpdateTitleAbstractAsync(titleAbstract);
+            return NoContent();
         }
     }
 }
