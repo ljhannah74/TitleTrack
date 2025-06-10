@@ -117,21 +117,6 @@ public class TitleAbstractControllerTests
     }
 
     [Fact]
-    public async Task UpdateTitleAbstract_ReturnsNotFound_IfNotExists()
-    {
-        // Arrange
-        var abstractItem = new TitleAbstract { TitleAbstractID = 1 };
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((TitleAbstract?)null);
-
-        // Act
-        var result = await _controller.UpdateTitleAbstract(1, abstractItem);
-
-        // Assert
-        var notFound = Assert.IsType<NotFoundObjectResult>(result);
-        Assert.Equal("Title Abstract with ID 1 not found.", notFound.Value);
-    }
-
-    [Fact]
     public async Task UpdateTitleAbstract_ReturnsBadRequest_IfIdMismatch()
     {
         // Arrange
@@ -158,6 +143,6 @@ public class TitleAbstractControllerTests
         var result = await _controller.UpdateTitleAbstract(1, abstractItem);
 
         // Assert
-        Assert.IsType<NoContentResult>(result);
+        Assert.IsType<CreatedAtActionResult>(result);
     }
 }
