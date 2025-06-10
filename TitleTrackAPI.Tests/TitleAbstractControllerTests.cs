@@ -115,4 +115,34 @@ public class TitleAbstractControllerTests
         var ok = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(item, ok.Value);
     }
+
+    [Fact]
+    public async Task UpdateTitleAbstract_ReturnsBadRequest_IfIdMismatch()
+    {
+        // Arrange
+        var abstractItem = new TitleAbstract { TitleAbstractID = 2 };
+        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(new TitleAbstract { TitleAbstractID = 1 });
+
+        // Act
+        var result = await _controller.UpdateTitleAbstract(1, abstractItem);
+
+        // Assert
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Title Abstract data is invalid.", badRequest.Value);
+    }
+
+    [Fact]
+    public async Task UpdateTitleAbstract_ReturnsOk_IfUpdated()
+    {
+        // Arrange
+        var abstractItem = new TitleAbstract { TitleAbstractID = 1 };
+        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(abstractItem);
+        _mockRepo.Setup(r => r.UpdateTitleAbstractAsync(abstractItem)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.UpdateTitleAbstract(1, abstractItem);
+
+        // Assert
+        Assert.IsType<CreatedAtActionResult>(result);
+    }
 }

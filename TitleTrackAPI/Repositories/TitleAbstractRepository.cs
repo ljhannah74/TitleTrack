@@ -43,8 +43,15 @@ public class TitleAbstractRepository : ITitleAbstractRepository
 
     public async Task<TitleAbstract?> GetByOrderNoAsync(string orderNumber)
     {
-        return await _context.TitleAbstracts
+        var titleAbstract = await _context.TitleAbstracts
             .FirstOrDefaultAsync(ta => ta.OrderNo == orderNumber);
+
+        if (titleAbstract == null)
+        {
+            return null;
+        }
+
+        return titleAbstract;
     }
 
     public async Task UpdateTitleAbstractAsync(TitleAbstract titleAbstract)
