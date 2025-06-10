@@ -70,14 +70,8 @@ namespace TitleTrackAPI.Controllers
                 return BadRequest("Title Abstract data is invalid.");
             }
 
-            var existingTitleAbstract = await _titleAbstractRepository.GetByIdAsync(id);
-            if (existingTitleAbstract == null)
-            {
-                return NotFound($"Title Abstract with ID {id} not found.");
-            }
-
             await _titleAbstractRepository.UpdateTitleAbstractAsync(titleAbstract);
-            return NoContent();
+            return CreatedAtAction(nameof(GetTitleAbstractById), new { id = titleAbstract.TitleAbstractID }, titleAbstract);
         }
     }
 }

@@ -54,11 +54,6 @@ public class TitleAbstractRepository : ITitleAbstractRepository
         return titleAbstract;
     }
 
-    private TitleAbstract? NotFound(string v)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task UpdateTitleAbstractAsync(TitleAbstract titleAbstract)
     {
         _context.TitleAbstracts.Update(titleAbstract);
