@@ -73,5 +73,20 @@ namespace TitleTrackAPI.Controllers
             await _titleAbstractRepository.UpdateTitleAbstractAsync(titleAbstract);
             return CreatedAtAction(nameof(GetTitleAbstractById), new { id = titleAbstract.TitleAbstractID }, titleAbstract);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteTitleAbstract(int id)
+        {
+            try
+            {
+                await _titleAbstractRepository.DeleteTitleAbstractAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        } 
     }
 }

@@ -145,4 +145,31 @@ public class TitleAbstractControllerTests
         // Assert
         Assert.IsType<CreatedAtActionResult>(result);
     }
+
+    [Fact]
+    public async Task DeleteTitleAbstract_ReturnsNotFound_IfNotExists()
+    {
+        // Arrange
+        _mockRepo.Setup(r => r.DeleteTitleAbstractAsync(1)).ThrowsAsync(new KeyNotFoundException("TitleAbstract with ID 1 not found."));
+
+        // Act
+        var result = await _controller.DeleteTitleAbstract(1);
+
+        // Assert
+        var notFound = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal("TitleAbstract with ID 1 not found.", notFound.Value);
+    }
+
+    [Fact]
+    public async Task DeleteTitleAbstract_ReturnsNoContent_IfDeleted()
+    {
+        // Arrange
+        _mockRepo.Setup(r => r.DeleteTitleAbstractAsync(1)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.DeleteTitleAbstract(1);
+
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+    }
 }
