@@ -20,6 +20,7 @@ public class TitleTrackDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CountyConfig());
 
         // ✅ Seed data
+        
         SeedData.Seed(modelBuilder);
     }
 }
