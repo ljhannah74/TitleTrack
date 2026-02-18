@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using TitleTrack.Api.Dtos;
+using TitleTrack.Api.Entities;
 using TitleTrack.Api.Services;
 
 namespace TitleTrack.Api.Controllers;
@@ -9,7 +10,7 @@ namespace TitleTrack.Api.Controllers;
 [Route("api/[controller]")]
 public class AbstractReportsController : ControllerBase
 {
-   private readonly AbstractReportService _service;
+    private readonly AbstractReportService _service;
 
     public AbstractReportsController(AbstractReportService service)
     {
@@ -36,4 +37,27 @@ public class AbstractReportsController : ControllerBase
         var reports = await _service.GetAllAsync();
         return Ok(reports);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<AbstractReport>> GetById(int id)
+    {
+        var report = await _service.GetByIdAsync(id);
+
+        if (report == null)
+            return NotFound($"AbstractReport with ID '{id}' not found.");
+
+        return Ok(report);
+    }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<List<AbstractReportDto>>> Search(
+    [FromQuery] DateTime? fromDate,
+    [FromQuery] DateTime? toDate,
+    [FromQuery] int? countyId,
+    [FromQuery] string? productType)
+    {
+        var results = await _service.SearchAsync(fromDate, toDate, countyId, productType);
+        return Ok(results);
+    }
+
 }

@@ -53,4 +53,61 @@ public class AbstractReportService
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
+
+    public async Task<AbstractReportDto?> GetByIdAsync(int id)
+    {
+        return await _db.AbstractReports
+            .Where(r => r.ReportID == id)
+            .Select(r => new AbstractReportDto
+            {
+                Id = r.ReportID,
+                OrderNumber = r.OrderNumber,
+                OrderDate = r.OrderDate,
+                SearchDate = r.SearchDate,
+                EffectiveDate = r.EffectiveDate,
+                PropertyAddress = r.PropertyAddress,
+                ProductType = r.ProductType,
+                CountyId = r.CountyID,
+                CountyName = r.County.Name
+            })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<List<AbstractReportDto>> SearchAsync(
+    DateTime? fromDate,
+    DateTime? toDate,
+    int? countyId,
+    string? productType)
+    {
+        var query = _db.AbstractReports.AsQueryable();
+
+        if (fromDate.HasValue)
+            query = query.Where(r => r.SearchDate >= fromDate.Value);
+
+        if (toDate.HasValue)
+            query = query.Where(r => r.SearchDate <= toDate.Value);
+
+        if (countyId.HasValue)
+            query = query.Where(r => r.CountyID == countyId.Value);
+
+        if (!string.IsNullOrEmpty(productType))
+            query = query.Where(r => r.ProductType == productType);
+
+        return await query
+            .Select(r => new AbstractReportDto
+            {
+                Id = r.ReportID,
+                OrderNumber = r.OrderNumber,
+                OrderDate = r.OrderDate,
+                SearchDate = r.SearchDate,
+                EffectiveDate = r.EffectiveDate,
+                PropertyAddress = r.PropertyAddress,
+                ProductType = r.ProductType,
+                CountyId = r.CountyID,
+                CountyName = r.County.Name
+            })
+            .OrderByDescending(r => r.SearchDate)
+            .ToListAsync();
+    }
+
 }
