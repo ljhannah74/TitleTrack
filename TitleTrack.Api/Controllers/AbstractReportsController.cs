@@ -19,8 +19,15 @@ public class AbstractReportsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateAbstractReportDto dto)
     {
-        var report = await _service.CreateAsync(dto);
-        return CreatedAtAction(nameof(GetAll), new { id = report.ReportID }, report);
+        try
+        {
+            var report = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetAll), new { id = report.ReportID }, report);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet]

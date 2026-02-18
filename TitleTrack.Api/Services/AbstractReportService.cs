@@ -8,7 +8,7 @@ namespace TitleTrack.Api.Services;
 
 public class AbstractReportService
 {
-   private readonly TitleTrackDbContext _db;
+    private readonly TitleTrackDbContext _db;
 
     public AbstractReportService(TitleTrackDbContext db)
     {
@@ -23,6 +23,11 @@ public class AbstractReportService
 
         if (dto.EffectiveDate < dto.SearchDate)
             throw new Exception("EffectiveDate cannot be before SearchDate");
+
+        // ✅ County validation
+        var countyExists = await _db.Counties.AnyAsync(c => c.CountyID == dto.CountyID);
+        if (!countyExists)
+            throw new Exception($"County with ID {dto.CountyID} does not exist");
 
         var report = new AbstractReport
         {
