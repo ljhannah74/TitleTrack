@@ -12,9 +12,14 @@ public class TitleTrackDbContext : DbContext
     }
 
     public DbSet<AbstractReport> AbstractReports => Set<AbstractReport>();
+    public DbSet<County> Counties => Set<County>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new AbstractReportConfig());
+        modelBuilder.ApplyConfiguration(new CountyConfig());
+
+        // ✅ Seed data
+        SeedData.Seed(modelBuilder);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TitleTrack.Api.Entities;
 
@@ -32,9 +33,8 @@ public class AbstractReport
 
     // Navigation
 
-    // these will be added later
-    // [ForeignKey(nameof(CountyID))]
-    // public County County { get; set; } = null!;
+    [ForeignKey(nameof(CountyID))]
+    public County County { get; set; } = null!;
 
     // public ICollection<Deed> Deeds { get; set; } = new List<Deed>();
     // public ICollection<Mortgage> Mortgages { get; set; } = new List<Mortgage>();

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TitleTrack.Api.Data;
 
@@ -10,9 +11,11 @@ using TitleTrack.Api.Data;
 namespace TitleTrack.Api.Migrations
 {
     [DbContext(typeof(TitleTrackDbContext))]
-    partial class TitleTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260218024929_AddCountyEntity")]
+    partial class AddCountyEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -97,38 +100,6 @@ namespace TitleTrack.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Counties", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CountyID = 1,
-                            Name = "Miami-Dade",
-                            State = "FL"
-                        },
-                        new
-                        {
-                            CountyID = 2,
-                            Name = "Broward",
-                            State = "FL"
-                        },
-                        new
-                        {
-                            CountyID = 3,
-                            Name = "Palm Beach",
-                            State = "FL"
-                        },
-                        new
-                        {
-                            CountyID = 4,
-                            Name = "Los Angeles",
-                            State = "CA"
-                        },
-                        new
-                        {
-                            CountyID = 5,
-                            Name = "Orange",
-                            State = "CA"
-                        });
                 });
 
             modelBuilder.Entity("TitleTrack.Api.Entities.AbstractReport", b =>

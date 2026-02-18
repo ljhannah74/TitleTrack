@@ -15,6 +15,8 @@ internal class Program
             options.UseSqlite("Data Source=titletrack.db"));
 
         builder.Services.AddScoped<AbstractReportService>();
+        builder.Services.AddScoped<CountyService>();
+
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
