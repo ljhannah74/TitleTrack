@@ -36,9 +36,5 @@ public class AbstractReport
     [ForeignKey(nameof(CountyID))]
     public County County { get; set; } = null!;
 
-    // public ICollection<Deed> Deeds { get; set; } = new List<Deed>();
-    // public ICollection<Mortgage> Mortgages { get; set; } = new List<Mortgage>();
-    // public ICollection<Judgment> Judgments { get; set; } = new List<Judgment>();
-    // public ICollection<TaxInfo> TaxInfos { get; set; } = new List<TaxInfo>();
-    // public ICollection<Document> Documents { get; set; } = new List<Document>();
+    public ICollection<Document> Documents { get; set; } = new List<Document>();
 }

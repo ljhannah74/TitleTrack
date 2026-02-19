@@ -16,6 +16,7 @@ internal class Program
 
         builder.Services.AddScoped<AbstractReportService>();
         builder.Services.AddScoped<CountyService>();
+        builder.Services.AddScoped<DocumentService>();
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
